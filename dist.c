@@ -7,16 +7,12 @@
 
 #pragma comment(lib, "dxva2.lib")
 
-void print_on_error(const char *name) {
+void on_error(const char *name) {
 
 	printf("\nERROR: unknown value !\n\n");
-	printf("\tFormat:\t\t%s [Monitor No.] [RED %%] [GREEN %%] [BLUE %%]\n", name);
-	printf("\tExample:\t%s 0 100 15 15 (0 for Primary Monitor)\n", name);
+	printf("\tFormat:\t\t%s [MONITOR NO] - (Use '0' for Primary Monitor) [BRIGHTNESS%%] [RED %%] [GREEN %%] [BLUE %%]\n", name);
+	printf("\tExample:\t%s 0 50 100 55 10\n", name);
 }
-
-// void set_bright(HANDLE hMonitor, int i) {
-// 	SetMonitorBrightness(hMonitor, i);
-// }
 
 void value_set(HANDLE hMonitor, DWORD R, DWORD G, DWORD B) {
 	
@@ -37,15 +33,15 @@ int check_range(HANDLE hMonitor, DWORD R, DWORD G, DWORD B) {
 
 int main(int argc, char *argv[]) {
 
-	if (argc < 6) { print_on_error(argv[0]); return 1; }
+	if (argc < 6) { on_error(argv[0]); return 1; }
 
 	DWORD vM, Br, vR, vG, vB;
 
-	if (isdigit(*argv[1])) vM = atoi(argv[1]); else { print_on_error(argv[0]); return 1; }
-	if (isdigit(*argv[2])) Br = atoi(argv[2]); else { print_on_error(argv[0]); return 1; }
-	if (isdigit(*argv[3])) vR = atoi(argv[3]); else { print_on_error(argv[0]); return 1; }
-	if (isdigit(*argv[4])) vG = atoi(argv[4]); else { print_on_error(argv[0]); return 1; }
-	if (isdigit(*argv[5])) vB = atoi(argv[5]); else { print_on_error(argv[0]); return 1; }
+	if (isdigit(*argv[1])) vM = atoi(argv[1]); else { on_error(argv[0]); return 1; }
+	if (isdigit(*argv[2])) Br = atoi(argv[2]); else { on_error(argv[0]); return 1; }
+	if (isdigit(*argv[3])) vR = atoi(argv[3]); else { on_error(argv[0]); return 1; }
+	if (isdigit(*argv[4])) vG = atoi(argv[4]); else { on_error(argv[0]); return 1; }
+	if (isdigit(*argv[5])) vB = atoi(argv[5]); else { on_error(argv[0]); return 1; }
 
     HMONITOR hMonitor = MonitorFromWindow(GetDesktopWindow(), MONITOR_DEFAULTTOPRIMARY);
     DWORD numMonitors;
@@ -67,7 +63,8 @@ int main(int argc, char *argv[]) {
 				printf("\nMonitor: %d | Bright: %d%% | Color: RGB(%d%%, %d%%, %d%%)\n", vM, Br, vR, vG, vB);
 
             } else {
-                printf("\nRGB values are out of range for this monitor (%d) !\n", vM);
+				
+                printf("\nERROR: Out of Range ! monitor (%d), bright (%d%%), RGB(%d%%, %d%%, %d%%)\n", vM, Br, vR, vG, vB);
             }
 
             DestroyPhysicalMonitors(numMonitors, monitors);

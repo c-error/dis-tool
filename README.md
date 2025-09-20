@@ -1,12 +1,12 @@
 # Display Tool
 
-🎨 Display Tool (dist) is a simple tool for control moniter `color`, `brightness`, `power-off`, etc. for Windows system.
+🎨 Display Tool (dist) is a simple tool to control monitor `color`, `brightness`, `power-off`, etc. on Windows systems.
 
 ## Features:
-- **Color** – adjust monitor rgb color `%` with cuntom color `%`.
-- **Brightness** - adjust monitor brightness `%` with cuntom brightness `%`.
-- **Night-Light** - preset rgb config for night-light mode.
-- **Power-Off** - can turn off display using simple CLI.
+- **Color** – adjust monitor RGB color `%` with custom color `%`.
+- **Brightness** – adjust monitor brightness `%` with custom brightness `%`.
+- **Night-Light** – preset RGB configuration for night-light mode.
+- **Power-Off** – turn off the display using a simple CLI.
 
 ## Usage:
 - Run:
